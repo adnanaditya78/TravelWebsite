@@ -1,24 +1,24 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const AUTH_LOGIN = "AUTH_LOGIN";
-export const AUTH_REGISTER = "AUTH_REGISTER";
-export const AUTH_LOGGED = "AUTH_LOGGED";
-export const UPDATE_PROFILE = "UPDATE_PROFILE";
-export const GET_ALL_USER = "GET_ALL_USER";
+export const AUTH_LOGIN = 'AUTH_LOGIN';
+export const AUTH_REGISTER = 'AUTH_REGISTER';
+export const AUTH_LOGGED = 'AUTH_LOGGED';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const GET_ALL_USER = 'GET_ALL_USER';
 
 export const login = (email, password) => {
   return (dispatch) => {
     axios
       .post(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/login",
+        'https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/login',
         {
           email: email,
           password: password,
         },
         {
           headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-            "Content-Type": "application/json",
+            apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+            'Content-Type': 'application/json',
           },
         }
       )
@@ -49,32 +49,24 @@ export const login = (email, password) => {
   };
 };
 
-export const register = ({
-  email,
-  name,
-  password,
-  role,
-  passwordRepeat,
-  phoneNumber,
-  profilePictureUrl,
-}) => {
+export const register = ({ email, name, password, role, passwordRepeat, phoneNumber, getUrl }) => {
   return (dispatch) => {
     axios
       .post(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/register",
+        'https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/register',
         {
           email: email,
           name: name,
           password: password,
           passwordRepeat: passwordRepeat,
           role: role,
-          profilePictureUrl: profilePictureUrl,
+          profilePictureUrl: getUrl,
           phoneNumber: phoneNumber,
         },
         {
           headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-            "Content-Type": "application/json",
+            apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+            'Content-Type': 'application/json',
           },
         }
       )
@@ -105,19 +97,14 @@ export const register = ({
   };
 };
 
-const token = sessionStorage.getItem("token");
+const token = sessionStorage.getItem('token');
 
-export const updateProfile = ({
-  name,
-  email,
-  phoneNumber,
-  profilePictureUrl,
-}) => {
-    console.log(name);
+export const updateProfile = ({ name, email, phoneNumber, profilePictureUrl }) => {
+  console.log(name);
   return (dispatch) => {
     axios
       .post(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/update-profile",
+        'https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/update-profile',
         {
           email: email,
           name: name,
@@ -126,9 +113,9 @@ export const updateProfile = ({
         },
         {
           headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
+            apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
           },
         }
       )
@@ -162,10 +149,10 @@ export const updateProfile = ({
 export const getLoggedUser = () => {
   return (dispatch) => {
     axios
-      .get("https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/user", {
+      .get('https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/user', {
         headers: {
-          Authorization: "Bearer " + token,
-          apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
+          Authorization: 'Bearer ' + token,
+          apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
         },
       })
       .then(function (response) {
@@ -197,15 +184,12 @@ export const getLoggedUser = () => {
 export const getAllUser = () => {
   return (dispatch) => {
     axios
-      .get(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/all-user",
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-          },
-        }
-      )
+      .get('https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/all-user', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+        },
+      })
       .then(function (response) {
         // handle success
         dispatch({

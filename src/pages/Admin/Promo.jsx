@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { deletePromo, getPromoList } from "../../action/promoAction";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { deletePromo, getPromoList } from '../../action/promoAction';
 
 const mapStateToProps = (state) => {
   return {
@@ -39,12 +39,10 @@ const Promo = ({ promo, onDeletePromo, onGetPromoList }) => {
 
   const indexOfLastData = currentPage * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentData = promo
-    ? promo.data.slice(indexOfFirstData, indexOfLastData)
-    : [];
+  const currentData = promo ? promo.data.slice(indexOfFirstData, indexOfLastData) : [];
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this promo?")) {
+    if (window.confirm('Are you sure you want to delete this promo?')) {
       onDeletePromo(id);
       onGetPromoList(); // Dispatch ulang setelah promo dihapus
     }
@@ -53,77 +51,52 @@ const Promo = ({ promo, onDeletePromo, onGetPromoList }) => {
   return (
     <>
       {promo ? (
-        <div className="p-5">
-          <Link
-            className="btn btn-primary text-white mb-2"
-            to={"/admin/promo/add"}
-          >
+        <div className='p-5'>
+          <Link className='btn btn-primary text-white mb-2' to={'/admin/promo/add'}>
             ADD NEW PROMO
           </Link>
-          <div className="table-responsive" style={{ overflowX: "auto" }}>
-            <table className="table">
-              <thead className="table-primary">
+          <div className='table-responsive' style={{ overflowX: 'auto' }}>
+            <table className='table'>
+              <thead className='table-primary'>
                 <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Term Condition</th>
-                  <th scope="col">Promo Code</th>
-                  <th scope="col">Promo Price</th>
-                  <th scope="col">Minimum Claim</th>
-                  <th scope="col">Actions</th>{" "}
-                  {/* Tambahkan kolom untuk delete */}
+                  <th scope='col'>No</th>
+                  <th scope='col'>Title</th>
+                  <th scope='col'>Description</th>
+                  <th scope='col'>Image</th>
+                  <th scope='col'>Term Condition</th>
+                  <th scope='col'>Promo Code</th>
+                  <th scope='col'>Promo Price</th>
+                  <th scope='col'>Minimum Claim</th>
+                  <th scope='col'>Actions</th> {/* Tambahkan kolom untuk delete */}
                 </tr>
               </thead>
               <tbody>
                 {currentData.map((promo, idx) => (
-                  <tr key={idx} style={{ height: "50px" }}>
-                    <td style={{ width: "5%", verticalAlign: "middle" }}>
-                      {indexOfFirstData + idx + 1}
-                    </td>
-                    <td style={{ width: "20%", verticalAlign: "middle" }}>
-                      {promo.title}
-                    </td>
-                    <td style={{ width: "20%", verticalAlign: "middle" }}>
+                  <tr key={idx} style={{ height: '50px' }}>
+                    <td style={{ width: '5%', verticalAlign: 'middle' }}>{indexOfFirstData + idx + 1}</td>
+                    <td style={{ width: '20%', verticalAlign: 'middle' }}>{promo.title}</td>
+                    <td style={{ width: '20%', verticalAlign: 'middle' }}>
                       {promo.description.length > 50
-                        ? promo.description.slice(0, 30) + "..." // Memotong deskripsi menjadi 50 karakter dan menambahkan "..."
+                        ? promo.description.slice(0, 30) + '...' // Memotong deskripsi menjadi 50 karakter dan menambahkan "..."
                         : promo.description}
                     </td>
-                    <td style={{ width: "15%", verticalAlign: "middle" }}>
-                      <img
-                        src={promo.imageUrl}
-                        alt=""
-                        style={{ width: "100px" }}
-                      />
+                    <td style={{ width: '15%', verticalAlign: 'middle' }}>
+                      <img src={promo.imageUrl} alt='' style={{ width: '100px' }} />
                     </td>
-                    <td style={{ width: "15%", verticalAlign: "middle" }}>
+                    <td style={{ width: '15%', verticalAlign: 'middle' }}>
                       {promo.terms_condition.length > 30
-                        ? promo.terms_condition.slice(0, 30) + "..." // Memotong deskripsi menjadi 50 karakter dan menambahkan "..."
+                        ? promo.terms_condition.slice(0, 30) + '...' // Memotong deskripsi menjadi 50 karakter dan menambahkan "..."
                         : promo.terms_condition}
                     </td>
-                    <td style={{ width: "10%", verticalAlign: "middle" }}>
-                      {promo.promo_code}
-                    </td>
-                    <td style={{ width: "10%", verticalAlign: "middle" }}>
-                      {promo.promo_discount_price}
-                    </td>
-                    <td style={{ width: "10%", verticalAlign: "middle" }}>
-                      {promo.minimum_claim_price}
-                    </td>
-                    <td style={{ width: "5%", verticalAlign: "middle" }}>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(promo.id)}
-                      >
+                    <td style={{ width: '10%', verticalAlign: 'middle' }}>{promo.promo_code}</td>
+                    <td style={{ width: '10%', verticalAlign: 'middle' }}>{promo.promo_discount_price}</td>
+                    <td style={{ width: '10%', verticalAlign: 'middle' }}>{promo.minimum_claim_price}</td>
+                    <td style={{ width: '5%', verticalAlign: 'middle' }}>
+                      <button className='btn btn-delete mb-2' onClick={() => handleDelete(promo.id)}>
                         Delete
                       </button>
-                      <Link to={"/admin/promo/update/" +promo.id}>
-                        <button
-                          className="btn btn-danger"
-                        >
-                          Update
-                        </button>
+                      <Link to={'/admin/promo/update/' + promo.id}>
+                        <button className='btn btn-warning mb-2'>Update</button>
                       </Link>
                     </td>
                   </tr>
@@ -132,49 +105,24 @@ const Promo = ({ promo, onDeletePromo, onGetPromoList }) => {
             </table>
           </div>
           {/* Pagination */}
-          <div className="row justify-content-center">
-            <div className="col-6 text-center mt-3">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                  <li
-                    className={`page-item ${
-                      currentPage === 1 ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => paginate(currentPage - 1)}
-                    >
+          <div className='row justify-content-center'>
+            <div className='col-6 text-center mt-3'>
+              <nav aria-label='Page navigation example'>
+                <ul className='pagination'>
+                  <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                    <button className='page-link' onClick={() => paginate(currentPage - 1)}>
                       Previous
                     </button>
                   </li>
-                  {Array.from(
-                    { length: endPage - startPage + 1 },
-                    (_, i) => startPage + i
-                  ).map((pageNumber) => (
-                    <li
-                      className={`page-item ${
-                        pageNumber === currentPage ? "active" : ""
-                      }`}
-                      key={pageNumber}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => paginate(pageNumber)}
-                      >
+                  {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNumber) => (
+                    <li className={`page-item ${pageNumber === currentPage ? 'active' : ''}`} key={pageNumber}>
+                      <button className='page-link' onClick={() => paginate(pageNumber)}>
                         {pageNumber}
                       </button>
                     </li>
                   ))}
-                  <li
-                    className={`page-item ${
-                      currentPage === totalPages ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => paginate(currentPage + 1)}
-                    >
+                  <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                    <button className='page-link' onClick={() => paginate(currentPage + 1)}>
                       Next
                     </button>
                   </li>

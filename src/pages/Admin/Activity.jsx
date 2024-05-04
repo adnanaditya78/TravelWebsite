@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { deleteActivity, getActivityList } from "../../action/activityAction";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { deleteActivity, getActivityList } from '../../action/activityAction';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,14 +17,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const Activity = ({
-  activity,
-  categories,
-  onDeleteActivity,
-  onGetActivityList,
-}) => {
+const Activity = ({ activity, categories, onDeleteActivity, onGetActivityList }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState('');
   const dataPerPage = 5;
   const maxPageNumbers = 5;
 
@@ -53,15 +48,11 @@ const Activity = ({
 
   const indexOfLastData = currentPage * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
-  const filteredData = selectedCategory
-    ? activity.data.filter((item) => item.category.name === selectedCategory)
-    : activity.data;
+  const filteredData = selectedCategory ? activity.data.filter((item) => item.category.name === selectedCategory) : activity.data;
   const currentData = filteredData.slice(indexOfFirstData, indexOfLastData);
 
   const handleDeleteActivity = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this activity?"
-    );
+    const confirmDelete = window.confirm('Are you sure you want to delete this activity?');
     if (confirmDelete) {
       await onDeleteActivity(id);
       await onGetActivityList(); // Dispatch ulang setelah activity dihapus
@@ -69,25 +60,17 @@ const Activity = ({
   };
 
   return (
-    <div className="p-5">
-      <Link
-        className="btn btn-primary text-white mb-2"
-        to={"/admin/activity/add"}
-      >
+    <div className='p-5'>
+      <Link className='btn btn-primary text-white mb-2' to={'/admin/activity/add'}>
         ADD NEW ACTIVITY
       </Link>
       {/* Dropdown untuk filter kategori */}
-      <div className="mb-3">
-        <label htmlFor="categoryFilter" className="form-label">
+      <div className='mb-3'>
+        <label htmlFor='categoryFilter' className='form-label'>
           Filter by Category:
         </label>
-        <select
-          id="categoryFilter"
-          className="form-select"
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-        >
-          <option value="">All Categories</option>
+        <select id='categoryFilter' className='form-select' value={selectedCategory} onChange={handleCategoryChange}>
+          <option value=''>All Categories</option>
           {categories.map((category) => (
             <option key={category.id} value={category.name}>
               {category.name}
@@ -96,23 +79,23 @@ const Activity = ({
         </select>
       </div>
 
-      <div className="table-responsive" style={{ overflowX: "auto" }}>
-        <table className="table">
-          <thead className="table-primary">
+      <div className='table-responsive' style={{ overflowX: 'auto' }}>
+        <table className='table'>
+          <thead className='table-primary'>
             <tr>
-              <th scope="col">No</th>
-              <th scope="col">Category</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Price</th>
-              <th scope="col">Price Discount</th>
-              <th scope="col">Rating</th>
-              <th scope="col">Facilities</th>
-              <th scope="col">Address</th>
-              <th scope="col">Province</th>
-              <th scope="col">City</th>
-              <th scope="col">Images</th>
-              <th scope="col">Actions</th> {/* Tambahkan kolom Actions */}
+              <th scope='col'>No</th>
+              <th scope='col'>Category</th>
+              <th scope='col'>Title</th>
+              <th scope='col'>Description</th>
+              <th scope='col'>Price</th>
+              <th scope='col'>Price Discount</th>
+              <th scope='col'>Rating</th>
+              <th scope='col'>Facilities</th>
+              <th scope='col'>Address</th>
+              <th scope='col'>Province</th>
+              <th scope='col'>City</th>
+              <th scope='col'>Images</th>
+              <th scope='col'>Actions</th> {/* Tambahkan kolom Actions */}
             </tr>
           </thead>
           <tbody>
@@ -132,21 +115,14 @@ const Activity = ({
                   <td>{activity.province}</td>
                   <td>{activity.city}</td>
                   <td>
-                    <img
-                      src={activity.imageUrls}
-                      alt=""
-                      style={{ width: "100px" }}
-                    />
+                    <img src={activity.imageUrls} alt='' style={{ width: '100px' }} />
                   </td>
                   <td>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDeleteActivity(activity.id)}
-                    >
+                    <button className='btn btn-delete mb-2' onClick={() => handleDeleteActivity(activity.id)}>
                       Delete
                     </button>
-                    <Link to={"/admin/activity/update/" + activity.id}>
-                      <button className="btn btn-danger">Update</button>
+                    <Link to={'/admin/activity/update/' + activity.id}>
+                      <button className='btn btn-warning mb-2'>Update</button>
                     </Link>
                   </td>
                 </tr>
@@ -156,47 +132,24 @@ const Activity = ({
         </table>
       </div>
       {/* Pagination */}
-      <div className="row justify-content-center">
-        <div className="col-6 text-center mt-3">
-          <nav aria-label="Page navigation example">
-            <ul className="pagination">
-              <li
-                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => paginate(currentPage - 1)}
-                >
+      <div className='row justify-content-center'>
+        <div className='col-6 text-center mt-3'>
+          <nav aria-label='Page navigation example'>
+            <ul className='pagination'>
+              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <button className='page-link' onClick={() => paginate(currentPage - 1)}>
                   Previous
                 </button>
               </li>
-              {Array.from(
-                { length: endPage - startPage + 1 },
-                (_, i) => startPage + i
-              ).map((pageNumber) => (
-                <li
-                  className={`page-item ${
-                    pageNumber === currentPage ? "active" : ""
-                  }`}
-                  key={pageNumber}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => paginate(pageNumber)}
-                  >
+              {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNumber) => (
+                <li className={`page-item ${pageNumber === currentPage ? 'active' : ''}`} key={pageNumber}>
+                  <button className='page-link' onClick={() => paginate(pageNumber)}>
                     {pageNumber}
                   </button>
                 </li>
               ))}
-              <li
-                className={`page-item ${
-                  currentPage === totalPages ? "disabled" : ""
-                }`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => paginate(currentPage + 1)}
-                >
+              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <button className='page-link' onClick={() => paginate(currentPage + 1)}>
                   Next
                 </button>
               </li>

@@ -1,21 +1,22 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
+export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 
 export const uploadImage = (image) => {
+  console.log(image);
+
+  const formData = new FormData();
+  formData.append('image', image);
+
   return (dispatch) => {
     axios
-      .post(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/upload-image",
-        image,
-        {
-          headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+      .post('https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/upload-image', formData, {
+        headers: {
+          apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((response) => {
         // handle success
         dispatch({

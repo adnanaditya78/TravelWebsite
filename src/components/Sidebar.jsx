@@ -8,12 +8,11 @@ import { connect } from "react-redux";
 
 const handleLogout = () => {
   // Hapus token dari sessionStorage
-  if(confirm("Apakah yakin ingin logout?")){
-
-      sessionStorage.removeItem("token");
-      window.location.reload();
-      // Redirect ke halaman utama
-      return <Navigate to="/" />;
+  if (confirm("Apakah yakin ingin logout?")) {
+    sessionStorage.removeItem("token");
+    window.location.reload();
+    // Redirect ke halaman utama
+    return <Navigate to="/" />;
   }
 };
 
@@ -48,11 +47,17 @@ const Sidebar = ({ dispatch, user }) => {
             </a>
           </div>
           <ul className="list-unstyled components flex-grow-1 d-flex flex-column justify-content-center w-100">
-            <li className="mb-5">
-              <img src={user.data.profilePictureUrl} alt="" className="rounded-circle mt-2" style={{ width: "100px" }} />
-              <p className="mt-3">{user.data.name}</p>
+            <li className="mb-3">
               <Link className="nav-link" to={"/admin/profile"}>
-              <div className="btn btn-primary btn-sm">Edit</div>
+                <img
+                  src={user.data.profilePictureUrl}
+                  alt=""
+                  className="rounded-circle mt-2"
+                  style={{ width: "100px", height: "100px" }}
+                  onMouseEnter=""
+                />
+                <p className="mt-3">{user.data.name}</p>
+                {/* <div className='btn btn-primary btn-sm'>Edit</div> */}
               </Link>
             </li>
             <li className="btn btn-primary w-100 mb-3">

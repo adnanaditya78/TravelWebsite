@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { deleteCategory, getCategoryList } from "../../action/categoryAction";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { deleteCategory, getCategoryList } from '../../action/categoryAction';
 
 const mapStateToProps = (state) => {
   return {
@@ -39,12 +39,10 @@ const Category = ({ category, onDeleteCategory, onGetCategoryList }) => {
 
   const indexOfLastData = currentPage * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentData = category
-    ? category.data.slice(indexOfFirstData, indexOfLastData)
-    : [];
+  const currentData = category ? category.data.slice(indexOfFirstData, indexOfLastData) : [];
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this category?")) {
+    if (window.confirm('Are you sure you want to delete this category?')) {
       await onDeleteCategory(id);
       await onGetCategoryList(); // Dispatch ulang setelah category dihapus
     }
@@ -53,22 +51,18 @@ const Category = ({ category, onDeleteCategory, onGetCategoryList }) => {
   return (
     <>
       {category ? (
-        <div className="p-5">
-          <Link
-            className="btn btn-primary text-white mb-2"
-            to={"/admin/category/add"}
-          >
+        <div className='p-5'>
+          <Link className='btn btn-primary text-white mb-2' to={'/admin/category/add'}>
             ADD NEW CATEGORY
           </Link>
-          <div className="table-responsive" style={{ overflowX: "auto" }}>
-            <table className="table">
-              <thead className="table-primary">
+          <div className='table-responsive' style={{ overflowX: 'auto' }}>
+            <table className='table'>
+              <thead className='table-primary'>
                 <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Actions</th>{" "}
-                  {/* Tambahkan kolom untuk delete */}
+                  <th scope='col'>No</th>
+                  <th scope='col'>Name</th>
+                  <th scope='col'>Image</th>
+                  <th scope='col'>Actions</th> {/* Tambahkan kolom untuk delete */}
                 </tr>
               </thead>
               <tbody>
@@ -77,25 +71,14 @@ const Category = ({ category, onDeleteCategory, onGetCategoryList }) => {
                     <td>{indexOfFirstData + idx + 1}</td>
                     <td>{category.name}</td>
                     <td>
-                      <img
-                        src={category.imageUrl}
-                        alt=""
-                        style={{ width: "100px" }}
-                      />
+                      <img src={category.imageUrl} alt='' style={{ width: '100px' }} />
                     </td>
                     <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(category.id)}
-                      >
+                      <button className='btn btn-delete mb-2 me-2' onClick={() => handleDelete(category.id)}>
                         Delete
                       </button>
-                      <Link to={"/admin/category/update/" +category.id}>
-                        <button
-                          className="btn btn-danger"
-                        >
-                          Update
-                        </button>
+                      <Link to={'/admin/category/update/' + category.id}>
+                        <button className='btn btn-warning mb-2 me-2'>Update</button>
                       </Link>
                     </td>
                   </tr>
@@ -104,49 +87,24 @@ const Category = ({ category, onDeleteCategory, onGetCategoryList }) => {
             </table>
           </div>
           {/* Pagination */}
-          <div className="row justify-content-center">
-            <div className="col-6 text-center mt-3">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                  <li
-                    className={`page-item ${
-                      currentPage === 1 ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => paginate(currentPage - 1)}
-                    >
+          <div className='row justify-content-center'>
+            <div className='col-6 text-center mt-3'>
+              <nav aria-label='Page navigation example'>
+                <ul className='pagination'>
+                  <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                    <button className='page-link' onClick={() => paginate(currentPage - 1)}>
                       Previous
                     </button>
                   </li>
-                  {Array.from(
-                    { length: endPage - startPage + 1 },
-                    (_, i) => startPage + i
-                  ).map((pageNumber) => (
-                    <li
-                      className={`page-item ${
-                        pageNumber === currentPage ? "active" : ""
-                      }`}
-                      key={pageNumber}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => paginate(pageNumber)}
-                      >
+                  {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNumber) => (
+                    <li className={`page-item ${pageNumber === currentPage ? 'active' : ''}`} key={pageNumber}>
+                      <button className='page-link' onClick={() => paginate(pageNumber)}>
                         {pageNumber}
                       </button>
                     </li>
                   ))}
-                  <li
-                    className={`page-item ${
-                      currentPage === totalPages ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => paginate(currentPage + 1)}
-                    >
+                  <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                    <button className='page-link' onClick={() => paginate(currentPage + 1)}>
                       Next
                     </button>
                   </li>

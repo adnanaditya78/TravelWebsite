@@ -1,22 +1,19 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const GET_PROMO_LIST = "GET_PROMO_LIST";
-export const GET_PROMO_BY_ID = "GET_PROMO_BY_ID";
-export const DELETE_PROMO = "DELETE_PROMO";
-export const UPDATE_PROMO = "UPDATE_PROMO";
-export const ADD_PROMO = "ADD_PROMO";
+export const GET_PROMO_LIST = 'GET_PROMO_LIST';
+export const GET_PROMO_BY_ID = 'GET_PROMO_BY_ID';
+export const DELETE_PROMO = 'DELETE_PROMO';
+export const UPDATE_PROMO = 'UPDATE_PROMO';
+export const ADD_PROMO = 'ADD_PROMO';
 
 export const getPromoList = () => {
   return (dispatch) => {
     axios
-      .get(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/promos",
-        {
-          headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-          },
-        }
-      )
+      .get('https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/promos', {
+        headers: {
+          apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+        },
+      })
       .then(function (response) {
         // handle success
         dispatch({
@@ -48,15 +45,11 @@ export const getPromoList = () => {
 export const getPromoById = (promoId) => {
   return (dispatch) => {
     axios
-      .get(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/promo/" +
-          promoId,
-        {
-          headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-          },
-        }
-      )
+      .get('https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/promo/' + promoId, {
+        headers: {
+          apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+        },
+      })
       .then(function (response) {
         // handle success
         dispatch({
@@ -84,21 +77,17 @@ export const getPromoById = (promoId) => {
       });
   };
 };
-const token = sessionStorage.getItem("token");
+const token = sessionStorage.getItem('token');
 
 export const deletePromo = (bannerId) => {
   return (dispatch) => {
     axios
-      .delete(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/delete-promo/" +
-          bannerId,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-          },
-        }
-      )
+      .delete('https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/delete-promo/' + bannerId, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+        },
+      })
       .then(function (response) {
         // handle success
         dispatch({
@@ -127,24 +116,16 @@ export const deletePromo = (bannerId) => {
   };
 };
 
-export const addPromo = ({
-  title,
-  description,
-  imageUrl,
-  terms_condition,
-  promo_code,
-  promo_discount_price,
-  minimum_claim_price
-}) => {
-    console.log({promo_code, promo_discount_price});
+export const addPromo = ({ title, description, getUrl, terms_condition, promo_code, promo_discount_price, minimum_claim_price }) => {
+  console.log({ getUrl });
   return (dispatch) => {
     axios
       .post(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/create-promo",
+        'https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/create-promo',
         {
           title: title,
           description: description,
-          imageUrl: imageUrl,
+          imageUrl: getUrl,
           terms_condition: terms_condition,
           promo_code: promo_code,
           promo_discount_price: promo_discount_price,
@@ -152,9 +133,9 @@ export const addPromo = ({
         },
         {
           headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
+            apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
           },
         }
       )
@@ -185,62 +166,54 @@ export const addPromo = ({
   };
 };
 
-export const updatePromo = (
-    promoId,
-    title,
-    description,
-    imageUrl,
-    terms_condition,
-    promo_code,
-    promo_discount_price,
-    minimum_claim_price
-  ) => {
-    return (dispatch) => {
-      axios
-        .post(
-          `https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/update-promo/${promoId}`,
-          {
-            title,
-            description,
-            imageUrl,
-            terms_condition,
-            promo_code,
-            promo_discount_price: parseFloat(promo_discount_price), // Konversi ke numerik
-            minimum_claim_price: parseFloat(minimum_claim_price), // Konversi ke numerik
+export const updatePromo = (promoId, title, description, imageUrl, terms_condition, promo_code, promo_discount_price, minimum_claim_price) => {
+  console.log(promoId, title, description, imageUrl, terms_condition, promo_code, promo_discount_price, minimum_claim_price);
+
+  return (dispatch) => {
+    axios
+      .post(
+        `https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/update-promo/${promoId}`,
+        {
+          title,
+          description,
+          imageUrl,
+          terms_condition,
+          promo_code,
+          promo_discount_price: parseFloat(promo_discount_price), // Konversi ke numerik
+          minimum_claim_price: parseFloat(minimum_claim_price), // Konversi ke numerik
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            apiKey: '24405e01-fbc1-45a5-9f5a-be13afcd757c',
           },
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-              "Content-Type": "application/json",
-              apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-            },
-          }
-        )
-        .then(function (response) {
-          // Handle success
-          dispatch({
-            type: UPDATE_PROMO,
-            payload: {
-              data: response.data,
-              errorMessage: false,
-            },
-          });
-          console.log(response);
-        })
-        .catch(function (error) {
-          // Handle error
-          dispatch({
-            type: UPDATE_PROMO,
-            payload: {
-              data: false,
-              errorMessage: error.message,
-            },
-          });
-          console.log(error);
-        })
-        .finally(function () {
-          // Always executed
+        }
+      )
+      .then(function (response) {
+        // Handle success
+        dispatch({
+          type: UPDATE_PROMO,
+          payload: {
+            data: response.data,
+            errorMessage: false,
+          },
         });
-    };
+        console.log(response);
+      })
+      .catch(function (error) {
+        // Handle error
+        dispatch({
+          type: UPDATE_PROMO,
+          payload: {
+            data: false,
+            errorMessage: error.message,
+          },
+        });
+        console.log(error);
+      })
+      .finally(function () {
+        // Always executed
+      });
   };
-  
+};

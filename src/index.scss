@@ -1,9 +1,13 @@
 $primary: #e56e00;
 $danger: #000639;
+$warning: #f19100;
+$delete: #ce0303;
 
 $theme-colors: (
-  "primary": $primary,
-  "danger": $danger,
+  'primary': $primary,
+  'danger': $danger,
+  'warning': $warning,
+  'delete': $delete,
 );
 
 .overlay-text {
@@ -13,4 +17,4 @@ $theme-colors: (
   transform: translate(-50%, -50%);
 }
 
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
